@@ -116,6 +116,7 @@ log4cpp::CategoryStream::Separator endlog = log4cpp::CategoryStream::ENDLINE;\
 #define CatLog localCategory()
 
 #define DLOG localCategory().debugStream()
+#define WLOG localCategory().warnStream()
 #define ELOG localCategory().errorStream()
 #define ILOG localCategory().infoStream()
 

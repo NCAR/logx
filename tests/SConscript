@@ -2,10 +2,13 @@
 
 Import('env')
 my_env = env.Create('logx.tests')
-my_tools = my_env.Require('PKG_LOGX')
+my_tools = my_env.Require(Split('PKG_LOGX'))
 
 test = my_env.Program('tlogx', Split("""
  tlogx.cc tlogx_a.cc tlogx_b.cc
 """))
 Default(test)
+
+
+
 DefaultEnvironment().Alias('check', test)
