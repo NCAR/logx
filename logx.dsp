@@ -89,6 +89,10 @@ SOURCE=.\LogAppender.cc
 # End Source File
 # Begin Source File
 
+SOURCE=.\Logging.cc
+# End Source File
+# Begin Source File
+
 SOURCE=.\LogLayout.cc
 # End Source File
 # Begin Source File
