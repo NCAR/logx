@@ -1,12 +1,29 @@
 # -*- python -*-
 
 Import('env')
-my_env = env.Create('logx')
-my_tools = my_env.Require('PKG_LOGX')
+env = env.Create('logx')
+env.Require (Split('PKG_LOG4CPP'))
 
-lib = my_env.Library('logx', Split("""
- ACE_Appender.cc Logging.cc LogLayout.cc LogAppender.cc system_error.cc
-"""))
-Default(lib)
+sources = Split("""
+ Logging.cc LogLayout.cc LogAppender.cc system_error.cc
+""")
+headers = Split("""
+ CaptureStream.h EventSource.h Logging.h Checks.h
+ system_error.h
+""")
+
+liblogx = env.Library('logx', sources)
+Default(liblogx)
+
+env.AddGlobalTarget("liblogx", liblogx)
+
+env.InstallLibrary(liblogx)
+env.InstallHeaders('logx', headers)
+
+doxconfig = {
+    "PROJECT_NAME" : "logx library"
+    }
+    
+env.Apidocs(sources + headers, DOXYFILE_DICT=doxconfig)
 
 SConscript("tests/SConscript")

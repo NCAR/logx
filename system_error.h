@@ -11,8 +11,8 @@ namespace logx
 {
 
   /**
-   * An object which encapsulates the current @code errno and corresponding
-   * error message from @code strerror() into an object which can be
+   * An object which encapsulates the current @c errno and corresponding
+   * error message from @c strerror() into an object which can be
    * written to an ostream.  It inherits from runtime_error so it can be
    * thrown as an exception also.
    **/
@@ -25,7 +25,7 @@ namespace logx
 	     const std::string& object = "", int errnum = -1);
 
     /**
-     * If @p errnum is -1, use the current value of @code errno.
+     * If @p errnum is -1, use the current value of @c errno.
      **/
     system_error(const std::string& action = "", 
 		 const std::string object = "",
