@@ -24,7 +24,7 @@ namespace dataspace
   std::string
   LogLayout::format(const LoggingEvent& event) 
   {
-    ostringstream message;
+    std::ostringstream message;
 
     const std::string& priorityName = 
       Priority::getPriorityName(event.priority);
