@@ -3,12 +3,12 @@
  *
  */
 
-#ifndef _LOGLAYOUT_H
-#define _LOGLAYOUT_H
+#ifndef _xlog4cpp_LOGLAYOUT_H
+#define _xlog4cpp_LOGLAYOUT_H
 
 #include <log4cpp/Layout.hh>
 
-namespace dataspace
+namespace xlog4cpp
 {
 
   /**
@@ -28,4 +28,4 @@ namespace dataspace
 
 }
 
-#endif // _LOGLAYOUT_H
+#endif // _xlog4cpp_LOGLAYOUT_H

@@ -10,7 +10,7 @@
 
 using namespace log4cpp;
 
-namespace dataspace
+namespace xlog4cpp
 {
 
   LogLayout::LogLayout()
