@@ -153,7 +153,12 @@ namespace logx
   ACE_Appender::
   Install (ACE_Appender* aa)
   {
-    if (! aa) aa = new ACE_Appender;
+    if (! aa) 
+    {
+      aa = new ACE_Appender;
+      // Include categories in the log messages by default.
+      aa->set_Pattern_Layout ("%c: %m%n");
+    }
     log4cpp::Category& root = log4cpp::Category::getRoot();
     root.removeAllAppenders();
     root.addAppender(aa);
