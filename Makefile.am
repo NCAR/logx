@@ -10,7 +10,8 @@ ace_cppflags =
 endif
 
 liblogx_a_SOURCES = \
-   LogLayout.cc private/LogLayout.h $(ace_srcs)
+   LogLayout.cc private/LogLayout.h $(ace_srcs) \
+   system_error.cc LogAppender.cc
 
 logxincludedir = $(includedir)/logx
 
