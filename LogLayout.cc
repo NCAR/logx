@@ -51,6 +51,8 @@ namespace logx
   {
     cerr << "-debug <category>\n"
 	 << "                Set debug log level for the log category.\n"
+	 << "-info <category>\n"
+	 << "                Set info log level for the log category.\n"
 	 << "-notice <category>\n"
 	 << "                Set notice log level for the log category.\n"
 	 << "-categories     List the log categories.\n"
@@ -59,17 +61,41 @@ namespace logx
   }
 
 
+  Appender*
+  AddRootAppender (const std::string& name, std::ostream& out, 
+		   Priority::Value p)
+  {
+    Category& root = Category::getRoot();
+    Appender *appender = new OstreamAppender (name, &out);
+    appender->setLayout (new LogLayout);
+    appender->setThreshold (p);
+    root.addAppender(appender);
+    return appender;
+  }
+
+
+  void
+  AddVerboseAppender (const std::string& name, std::ostream& out)
+  {
+    AddRootAppender (name, out, Priority::DEBUG);
+  }
+
+
+  void
+  handleOption (const char* cat, Priority::Value p, Appender* appender = 0)
+  {
+    if (strcmp (cat, "all") == 0)
+      Category::getRoot().setPriority(p);
+    else
+      Category::getInstance(cat).setPriority(p);
+    appender->setThreshold (p);
+  }
+
+
   void
   ParseLogArgs (int& argc, char* argv[])
   {
-    Category& root = Category::getRoot();
-
-    // Add a 'cerr' appender for logging errors to stderr with a custom
-    // layout.
-    Appender *cerrAppender = new OstreamAppender ("cerr", &std::cerr);
-    cerrAppender->setLayout (new LogLayout);
-    cerrAppender->setThreshold (Priority::ERROR);
-    root.addAppender(cerrAppender);
+    Appender* appender = AddRootAppender ("cerr", std::cerr, Priority::ERROR);
 
     int i = 1;
     int iremain = 1;
@@ -78,32 +104,29 @@ namespace logx
       string arg(argv[i]);
       if (arg == "-debug" && i+1 < argc)
       {
-	char *cat = argv[++i];
-	if (strcmp (cat, "all") == 0)
-	  Category::getRoot().setPriority(log4cpp::Priority::DEBUG);
-	else
-	  Category::getInstance(cat).setPriority(log4cpp::Priority::DEBUG);
+	handleOption (argv[++i], log4cpp::Priority::DEBUG, appender);
       }
       else if (arg == "-notice" && i+1 < argc)
       {
-	char *cat = argv[++i];
-	if (strcmp (cat, "all") == 0)
-	  Category::getRoot().setPriority(log4cpp::Priority::NOTICE);
-	else
-	  Category::getInstance(cat).setPriority(log4cpp::Priority::NOTICE);
+	handleOption (argv[++i], log4cpp::Priority::NOTICE, appender);
+      }
+      else if (arg == "-info" && i+1 < argc)
+      {
+	handleOption (argv[++i], log4cpp::Priority::INFO, appender);
       }
       else if (arg == "-logfile" && i+1 < argc)
       {
-           char *logfile = argv[++i];
-           log4cpp::Appender *app =  new log4cpp::FileAppender("FileAppender", logfile);
+	char *logfile = argv[++i];
+	log4cpp::Appender *app =  
+	  new log4cpp::FileAppender("FileAppender", logfile);
 
 	std::vector<Category*> *cats = Category::getCurrentCategories();
     
 	for (std::vector<Category*>::iterator icat = cats->begin();
 	     icat != cats->end(); ++icat)
 	{
-                (*icat)->setAppender(app);
-            }
+	  (*icat)->setAppender(app);
+	}
     
       }
       else if (arg == "-categories")

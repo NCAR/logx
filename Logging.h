@@ -4,6 +4,7 @@
 #define _logx_Logging_H
 
 #include <log4cpp/Category.hh>
+#include <iosfwd>
 
 /**
  * Useful extensions to the log4cpp library, including a basic log layout 
@@ -34,15 +35,23 @@ namespace logx
   void
   ParseLogArgs (int& argc, char* argv[]);
 
-    /**
-      * install a FileAppender for all categories that opens the specified
-      * file.
-      * set additivity false to only log to this FileAppender
-      **/
-    void
-    LogToFile(std::string logFile,  bool additivity = true);
-    
+  /**
+   * Add an appender to the root category which will log messages of all
+   * priorities to the given output stream.  Since ParseLogArgs() only
+   * installs an appender with a threshold of ERROR, this function is can
+   * be used to direct debug messages as well.
+   **/
+  void
+  AddVerboseAppender (const std::string& name, std::ostream& out);
 
+  /**
+   * install a FileAppender for all categories that opens the specified
+   * file.
+   * set additivity false to only log to this FileAppender
+   **/
+  void
+  LogToFile(std::string logFile,  bool additivity = true);
+    
 }
 
 /**
