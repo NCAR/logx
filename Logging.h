@@ -33,6 +33,15 @@ namespace logx
   void
   ParseLogArgs (int& argc, char* argv[]);
 
+    /**
+      * install a FileAppender for all categories that opens the specified
+      * file.
+      * set additivity false to only log to this FileAppender
+      **/
+    void
+    LogToFile(std::string logFile,  bool additivity = true);
+    
+
 }
 
 /**

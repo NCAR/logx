@@ -5,6 +5,7 @@
 #include <log4cpp/Portability.hh>
 #include <log4cpp/Priority.hh>
 #include <log4cpp/Appender.hh>
+#include <log4cpp/FileAppender.hh>
 #include <log4cpp/Category.hh>
 
 #include "Logging.h"
@@ -51,7 +52,9 @@ namespace logx
 	 << "                Set debug log level for the log category.\n"
 	 << "-notice <category>\n"
 	 << "                Set notice log level for the log category.\n"
-	 << "-categories     List the log categories.\n";
+	 << "-categories     List the log categories.\n"
+            << "\n"
+         <<  " -logfile log_file_name \n";
   }
 
 
@@ -83,6 +86,21 @@ namespace logx
 	else
 	  Category::getInstance(cat).setPriority(log4cpp::Priority::NOTICE);
       }
+      else if (arg == "-logfile" && i+1 < argc)
+      {
+           char *logfile = argv[++i];
+           log4cpp::Appender *app =  new log4cpp::FileAppender("FileAppender", logfile);
+
+	std::vector<Category*> *cats = Category::getCurrentCategories();
+    
+	for (std::vector<Category*>::iterator icat = cats->begin();
+	     icat != cats->end(); ++icat)
+	{
+                (*icat)->setAppender(app);
+            }
+    
+      }
+      
       else if (arg == "-categories")
       {
 	cout << "Log categories: " << endl;
