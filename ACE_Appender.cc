@@ -81,7 +81,7 @@ namespace logx
   ACE_Appender::
   ACE_Appender() : LayoutAppender ("ACE_Appender")
   {
-    set_ACE_Format ("%T %M %n: %s");
+    set_ACE_Format ("%D %M %n: %s");
     set_Pattern_Layout ("%m%n");
   }
 
