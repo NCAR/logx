@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <log4cpp/LayoutAppender.hh>
+#include <log4cpp/PatternLayout.hh>
 #include <log4cpp/Priority.hh>
 #include <log4cpp/Category.hh>
 #include <ace/Log_Msg.h>
@@ -10,10 +11,10 @@
 
 using std::string;
 using log4cpp::Priority;
+using log4cpp::PatternLayout;
 
 namespace logx
 {
-
 
 
   Priority::PriorityLevel
@@ -77,64 +78,85 @@ namespace logx
   }
 
 
-  /**
-   * ACE_Appender appends LoggingEvents using ACE_Log_Msg.
-   **/
-  class ACE_Appender : public log4cpp::LayoutAppender
+  ACE_Appender::
+  ACE_Appender() : LayoutAppender ("ACE_Appender")
   {
-  public:
-
-    ACE_Appender() : LayoutAppender ("ACE_Appender")
-    {}
-
-    virtual
-    ~ACE_Appender()
-    {}
-        
-    virtual void 
-    _append (const log4cpp::LoggingEvent& event)
-    {
-      string msg (_getLayout().format(event));
-      ACE_Log_Priority ap = 
-	convertPriority (Priority::PriorityLevel(event.priority));
-      if (ap >= LM_ERROR)
-      {
-	ACE_ERROR((ap, "%s", msg.c_str()));
-      }
-      else
-      {
-	ACE_DEBUG((ap, "%s", msg.c_str()));
-      }
-    }
-
-    virtual bool
-    reopen()
-    {
-      return true;
-    }
-
-    virtual void
-    close()
-    {
-    }
-
-  };
-
-
-  void
-  Install_ACE_Appender (int& argc, char* argv[])
-  {
-    acex::SetupLogger (argc, argv);
-    log4cpp::Category& root = log4cpp::Category::getRoot();
-    root.removeAllAppenders();
-    root.addAppender(new ACE_Appender);
+    set_ACE_Format ("%T %M %n: %s");
+    set_Pattern_Layout ("%m%n");
   }
 
 
-  ACE_Appender*
-  Create_ACE_Appender (const char* argv0)
+  ACE_Appender::
+  ACE_Appender (const std::string& pattern, 
+		const std::string& ace_format) : 
+    LayoutAppender ("ACE_Appender")
   {
-    return new ACE_Appender;
+    set_Pattern_Layout (pattern);
+    set_ACE_Format (ace_format);
+  }
+
+
+  void
+  ACE_Appender::
+  set_Pattern_Layout (const std::string& pattern)
+  {
+    PatternLayout* layout = new PatternLayout();
+    layout->setConversionPattern (pattern);
+    setLayout (layout);
+  }
+
+
+  void
+  ACE_Appender::
+  set_ACE_Format (const std::string& ace_format)
+  {
+    _ace_format = ace_format;
+  }
+
+
+  ACE_Appender::
+  ~ACE_Appender()
+  {}
+  
+      
+  void 
+  ACE_Appender::
+  _append (const log4cpp::LoggingEvent& event)
+  {
+    string msg (_getLayout().format(event));
+    ACE_Log_Priority ap = 
+      convertPriority (Priority::PriorityLevel(event.priority));
+    int __ace_error = ACE_Log_Msg::last_error_adapter ();
+    ACE_Log_Msg *ace___ = ACE_Log_Msg::instance ();
+    ace___->conditional_set ("unknown", -1,
+			     (ap >= LM_ERROR) ? -1 : 0, __ace_error);
+    ace___->log (ap, _ace_format.c_str(), msg.c_str());
+  }
+
+  
+  bool
+  ACE_Appender::
+  reopen()
+  {
+    return true;
+  }
+
+  
+  void
+  ACE_Appender::
+  close()
+  {
+  }
+
+
+  void
+  ACE_Appender::
+  Install (ACE_Appender* aa)
+  {
+    if (! aa) aa = new ACE_Appender;
+    log4cpp::Category& root = log4cpp::Category::getRoot();
+    root.removeAllAppenders();
+    root.addAppender(aa);
   }
 
 

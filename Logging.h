@@ -32,6 +32,7 @@ namespace logx
    **/
   void
   ParseLogArgs (int& argc, char* argv[]);
+
 }
 
 /**
