@@ -60,22 +60,64 @@ namespace logx
   void
   LogToFile(std::string logFile,  bool additivity = true);
     
+
+  /**
+   * Simple class to collect the logging category names specified across
+   * translation units into a singe global list, so that all of the
+   * categories are known up front and can be configured with command-line
+   * options.
+   **/
+  class Logging_init
+  {
+  public:
+    Logging_init (const std::string& name);
+    ~Logging_init();
+  };
+
+
+  /**
+   * Return the array of logging category names specified for individual
+   * compilation modules with the LOGGGING macro.  These category names
+   * have not necessarily been instantiated yet with
+   * log4cpp::getInstance().  That is deferred until they are actually
+   * needed, such as when the category appenders and threshold levels are
+   * configured with command-line options.
+   **/
+  const std::string*
+  getLocalCategoryNames(int* n);
+
 }
 
 /**
  * Create a log category with the given @p name with static file scope.
  * Logging streams for this category can be created with the DLOG, ELOG,
- * and ILOG macros.
+ * and ILOG macros.  This also defines a convenient copy @p endlog of the
+ * ENDLINE CategoryStream::Separator.  The category is not actually created
+ * here until used, to avoid issues of initialization order between other
+ * translation units.  Instead, category names are collected by the
+ * Logging_init() constructors, and those names can be accessed through the
+ * getLocalCategoryNames() function.
  **/
 #define LOGGING(name) \
 namespace { \
-log4cpp::Category &CatLog = log4cpp::Category::getInstance(name); \
+logx::Logging_init _logging_init(name); \
+inline log4cpp::Category &localCategory() \
+{ \
+  static log4cpp::Category& log = log4cpp::Category::getInstance(name); \
+  return log; \
+} \
 log4cpp::CategoryStream::Separator endlog = log4cpp::CategoryStream::ENDLINE;\
 }
 
-#define DLOG CatLog.debugStream()
-#define ELOG CatLog.errorStream()
-#define ILOG CatLog.infoStream()
+/*
+ * For backwards compatibility with older code which used the CatLog
+ * symbol directly.
+ */
+#define CatLog localCategory()
+
+#define DLOG localCategory().debugStream()
+#define ELOG localCategory().errorStream()
+#define ILOG localCategory().infoStream()
 
 #endif // _logx_Logging_H
 
