@@ -14,6 +14,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <time.h>
 
 using namespace log4cpp;
 using std::cout;
@@ -35,11 +36,14 @@ namespace logx
   std::string
   LogLayout::format(const LoggingEvent& event) 
   {
-    std::ostringstream message;
+    char buf[32];
+    time_t t = event.timeStamp.getSeconds();
+    strftime (buf, sizeof(buf), "%Y-%m-%d %H:%M:%S|", gmtime(&t));
 
+    std::ostringstream message;
     const std::string& priorityName = 
       Priority::getPriorityName(event.priority);
-    message << priorityName << "[" << event.categoryName << "] ";
+    message << buf << priorityName << "[" << event.categoryName << "] ";
     message << event.message << std::endl;
 
     return message.str();
@@ -49,15 +53,16 @@ namespace logx
   void
   LogUsage()
   {
-    cerr << "-debug <category>\n"
+    cerr << "logging options:\n"
+	 << "  -debug <category>\n"
 	 << "                Set debug log level for the log category.\n"
-	 << "-info <category>\n"
+	 << "  -info <category>\n"
 	 << "                Set info log level for the log category.\n"
-	 << "-notice <category>\n"
+	 << "  -notice <category>\n"
 	 << "                Set notice log level for the log category.\n"
-	 << "-categories     List the log categories.\n"
-            << "\n"
-         <<  " -logfile log_file_name \n";
+	 << "  -categories   List the log categories.\n"
+         << "  -logfile <log_file_name>\n"
+	 << "                Log messages to the given log file.\n";
   }
 
 
@@ -93,8 +98,9 @@ namespace logx
 
 
   void
-  ParseLogArgs (int& argc, char* argv[])
+  ParseLogArgs (int& argc, char* argv[], int skip_usage)
   {
+    Category::getRoot().removeAllAppenders();
     Appender* appender = AddRootAppender ("cerr", std::cerr, Priority::ERROR);
 
     int i = 1;
@@ -152,7 +158,10 @@ namespace logx
 	// Check for help request but leave it on the arg list for
 	// other option checkers to handle too.
 	if (arg == "-help" || arg == "--help")
-	  LogUsage();
+	{
+	  if (! skip_usage)
+	    LogUsage();
+	}
 	++iremain;
       }
       ++i;

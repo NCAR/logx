@@ -6,11 +6,10 @@ OBJS = $(CXXSRCS:.cc=.o)
 INCLUDES = $(LOG4CPP_INCLUDES)
 
 NormalLibraryTarget (logx, $(OBJS))
+
 InstallLibrary (logx, $(LIBDIR))
 
-DISTFILES = Imakefile $(CXXSRCS) $(HDRS) 
-
-DistfilesTarget($(DISTFILES))
+SRCS = $(CXXSRCS)
 
 DependTarget ()
 

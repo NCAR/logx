@@ -27,13 +27,14 @@ namespace logx
    * listed with the -categories option, but only the categories created
    * statically with file scope (ie, before main() is entered) will be
    * known at this point.  However, that includes all categories created
-   * with the LOGGING macro.
+   * with the LOGGING macro.  If @p skip_usage is nonzero, then the
+   * logging options will not be printed if the -help option is detected.
    *
    * @see LOGGING
    * @see LogUsage()
    **/
   void
-  ParseLogArgs (int& argc, char* argv[]);
+  ParseLogArgs (int& argc, char* argv[], int skip_usage = 0);
 
   /**
    * Add an appender to the root category which will log messages of all
