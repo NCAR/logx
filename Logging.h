@@ -21,6 +21,13 @@ namespace logx
   LogUsage();
 
   /**
+   * Print usage info for the logging command line options to the
+   * given output stream.
+   **/
+  void
+  LogUsage(std::ostream& out);
+
+  /**
    * Parse and remove logging options in the command-line argument list.
    * This also sets up an ostream appender for the root category with a
    * basic logging layout and a threshold of ERROR.  The categories can be

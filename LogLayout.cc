@@ -53,7 +53,13 @@ namespace logx
   void
   LogUsage()
   {
-    cerr << "logging options:\n"
+    LogUsage (std::cerr);
+  }
+
+  void
+  LogUsage(std::ostream& outs)
+  {
+    outs << "logging options:\n"
 	 << "  -debug <category>\n"
 	 << "                Set debug log level for the log category.\n"
 	 << "  -info <category>\n"
