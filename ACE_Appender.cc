@@ -126,6 +126,7 @@ namespace logx
   {
     acex::SetupLogger (argc, argv);
     log4cpp::Category& root = log4cpp::Category::getRoot();
+    root.removeAllAppenders();
     root.addAppender(new ACE_Appender);
   }
 
