@@ -21,11 +21,12 @@ namespace logx
 
   /**
    * Parse and remove logging options in the command-line argument list.
-   * This also sets up a default, basic logging layout and adds it as the
-   * appender for the root category.  The categories can be listed with 
-   * the -categories option, but only the categories created statically with
-   * file scope (ie, before main() is entered) will be known at this point.
-   * However, that includes all categories created with the LOGGING macro.
+   * This also sets up an ostream appender for the root category with a
+   * basic logging layout and a threshold of ERROR.  The categories can be
+   * listed with the -categories option, but only the categories created
+   * statically with file scope (ie, before main() is entered) will be
+   * known at this point.  However, that includes all categories created
+   * with the LOGGING macro.
    *
    * @see LOGGING
    * @see LogUsage()

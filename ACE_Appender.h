@@ -46,7 +46,7 @@ namespace logx
 
     /**
      * Create a default ACE_Appender with the default layout pattern and
-     * ACE format.
+     * ACE format, and with a default name of 'ACE_Appender'.
      **/
     ACE_Appender();
 

@@ -5,6 +5,7 @@
 #include <log4cpp/Portability.hh>
 #include <log4cpp/Priority.hh>
 #include <log4cpp/Appender.hh>
+#include <log4cpp/OstreamAppender.hh>
 #include <log4cpp/FileAppender.hh>
 #include <log4cpp/Category.hh>
 
@@ -61,9 +62,14 @@ namespace logx
   void
   ParseLogArgs (int& argc, char* argv[])
   {
-    log4cpp::Appender *rootAppender = 
-      log4cpp::Category::getRoot().getAppender();
-    rootAppender->setLayout (new LogLayout);
+    Category& root = Category::getRoot();
+
+    // Add a 'cerr' appender for logging errors to stderr with a custom
+    // layout.
+    Appender *cerrAppender = new OstreamAppender ("cerr", &std::cerr);
+    cerrAppender->setLayout (new LogLayout);
+    cerrAppender->setThreshold (Priority::ERROR);
+    root.addAppender(cerrAppender);
 
     int i = 1;
     int iremain = 1;
@@ -100,7 +106,6 @@ namespace logx
             }
     
       }
-      
       else if (arg == "-categories")
       {
 	cout << "Log categories: " << endl;

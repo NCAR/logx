@@ -160,7 +160,6 @@ namespace logx
       aa->set_Pattern_Layout ("%c: %m%n");
     }
     log4cpp::Category& root = log4cpp::Category::getRoot();
-    root.removeAllAppenders();
     root.addAppender(aa);
   }
 
