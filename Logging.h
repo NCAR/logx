@@ -7,9 +7,18 @@
 
 namespace logx
 {
+  /**
+   * Print to standard error the command line options recognized by
+   * ParseLogArgs().
+   **/
   void
   LogUsage();
 
+  /**
+   * Parse and remove logging options in the command-line argument list.
+   * This also sets up a default, basic logging layout and adds it as the
+   * appender for the root category.
+   **/
   void
   ParseLogArgs (int& argc, char* argv[]);
 }
