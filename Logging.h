@@ -1,10 +1,18 @@
-// For internal implementation only and not meant to be included by
-// any public interface files.
+// -*- C++ -*-
 
-#ifndef _Logging_H
-#define _Logging_H
+#ifndef _logx_Logging_H
+#define _logx_Logging_H
 
 #include <log4cpp/Category.hh>
+
+namespace logx
+{
+  void
+  LogUsage();
+
+  void
+  ParseLogArgs (int& argc, char* argv[]);
+}
 
 #define LOGGING(name) \
 namespace { \
@@ -16,5 +24,5 @@ log4cpp::CategoryStream::Separator endlog = log4cpp::CategoryStream::ENDLINE;\
 #define ELOG CatLog.errorStream()
 #define ILOG CatLog.infoStream()
 
-#endif // _Logging_H
+#endif // _logx_Logging_H
 

@@ -1,14 +1,14 @@
-/*
+/* -*- C++ -*-
  * LogLayout.hh
  *
  */
 
-#ifndef _xlog4cpp_LOGLAYOUT_H
-#define _xlog4cpp_LOGLAYOUT_H
+#ifndef _logx_LOGLAYOUT_H
+#define _logx_LOGLAYOUT_H
 
 #include <log4cpp/Layout.hh>
 
-namespace xlog4cpp
+namespace logx
 {
 
   /**
@@ -28,4 +28,4 @@ namespace xlog4cpp
 
 }
 
-#endif // _xlog4cpp_LOGLAYOUT_H
+#endif // _logx_LOGLAYOUT_H
