@@ -15,8 +15,6 @@ headers = Split("""
 liblogx = env.Library('logx', sources)
 Default(liblogx)
 
-env.AddGlobalTarget("liblogx", liblogx)
-
 env.InstallLibrary(liblogx)
 env.InstallHeaders('logx', headers)
 
