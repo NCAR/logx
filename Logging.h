@@ -100,13 +100,23 @@ namespace logx
  **/
 #define LOGGING(name) \
 namespace { \
-logx::Logging_init _logging_init(name); \
+logx::Logging_init _logging_init_localCategory(name); \
 inline log4cpp::Category &localCategory() \
 { \
   static log4cpp::Category& log = log4cpp::Category::getInstance(name); \
   return log; \
 } \
 log4cpp::CategoryStream::Separator endlog = log4cpp::CategoryStream::ENDLINE;\
+}
+
+#define LOGCATEGORY(name,symbol) \
+namespace { \
+logx::Logging_init _logging_init_##symbol(name); \
+inline log4cpp::Category &symbol() \
+{ \
+  static log4cpp::Category& log = log4cpp::Category::getInstance(name); \
+  return log; \
+} \
 }
 
 /*
