@@ -1,7 +1,11 @@
 
 lib_LIBRARIES = liblogx.a
 
-liblogx_a_SOURCES = LogLayout.cc
+liblogx_a_SOURCES = LogLayout.cc private/LogLayout.h
+
+logxincludedir = $(includedir)/logx
+
+logxinclude_HEADERS = Logging.h
 
 AM_CPPFLAGS = $(LOG4CPP_CFLAGS)
 

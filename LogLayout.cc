@@ -8,7 +8,7 @@
 #include <log4cpp/Category.hh>
 
 #include "Logging.h"
-#include "LogLayout.h"
+#include "private/LogLayout.h"
 #include <iostream>
 #include <sstream>
 #include <string>
