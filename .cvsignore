@@ -1,6 +1,8 @@
 .deps
 .sconsign
-Doxyfile
-Makefile
-Makefile.in
-Makefile.dep
+doxyfile
+makefile
+makefile.in
+makefile.dep
+debug
+release
