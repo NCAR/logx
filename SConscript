@@ -22,6 +22,7 @@ doxconfig = {
     "PROJECT_NAME" : "logx library"
     }
     
-env.Apidocs(sources + headers, DOXYFILE_DICT=doxconfig)
+env.Apidocs(sources + headers + ["private/LogLayout.h"],
+            DOXYFILE_DICT=doxconfig)
 
 SConscript("tests/SConscript")
