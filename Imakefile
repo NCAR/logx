@@ -1,0 +1,17 @@
+
+CXXSRCS = LogLayout.cc system_error.cc LogAppender.cc
+
+OBJS = $(CXXSRCS:.cc=.o)
+
+INCLUDES = $(LOG4CPP_INCLUDES)
+
+NormalLibraryTarget (logx, $(OBJS))
+InstallLibrary (logx, $(LIBDIR))
+
+DISTFILES = Imakefile $(CXXSRCS) $(HDRS) 
+
+DistfilesTarget($(DISTFILES))
+
+DependTarget ()
+
+
