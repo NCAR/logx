@@ -14,6 +14,7 @@ log4cpp::CategoryStream::Separator endlog = log4cpp::CategoryStream::ENDLINE;\
 
 #define DLOG CatLog.debugStream()
 #define ELOG CatLog.errorStream()
+#define ILOG CatLog.infoStream()
 
 #endif // _Logging_H
 
