@@ -6,3 +6,6 @@ makefile.in
 makefile.dep
 debug
 release
+*.ncb
+*.plg
+*.opt
