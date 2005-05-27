@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logx", "logx.vcproj", "{E0B42578-E10C-410F-971D-0735B3C91DB5}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{E0B42578-E10C-410F-971D-0735B3C91DB5}.Debug.ActiveCfg = Debug|Win32
+		{E0B42578-E10C-410F-971D-0735B3C91DB5}.Debug.Build.0 = Debug|Win32
+		{E0B42578-E10C-410F-971D-0735B3C91DB5}.Release.ActiveCfg = Release|Win32
+		{E0B42578-E10C-410F-971D-0735B3C91DB5}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
