@@ -44,11 +44,11 @@ namespace logx
     
   };
 
+  std::ostream&
+  operator<< (std::ostream& out, const logx::system_error& se);
+
 }    
 
-
-std::ostream&
-operator<< (std::ostream& out, const logx::system_error& se);
 
 
 

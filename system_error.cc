@@ -38,6 +38,7 @@ system_error(const std::string& action,
 
 
 std::ostream&
+logx::
 operator<< (std::ostream& out, const logx::system_error& se)
 {
   out << se.what();
