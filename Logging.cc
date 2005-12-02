@@ -101,14 +101,14 @@ logx::
 LogUsage(std::ostream& outs)
 {
   outs << "logging options:\n"
-       << "  -debug <category>\n"
+       << "  --debug <category>\n"
        << "                Set debug log level for the log category.\n"
-       << "  -info <category>\n"
+       << "  --info <category>\n"
        << "                Set info log level for the log category.\n"
-       << "  -notice <category>\n"
+       << "  --notice <category>\n"
        << "                Set notice log level for the log category.\n"
-       << "  -categories   List the log categories.\n"
-       << "  -logfile <log_file_name>\n"
+       << "  --categories   List the log categories.\n"
+       << "  --logfile <log_file_name>\n"
        << "                Log messages to the given log file.\n";
 }
 
@@ -134,19 +134,19 @@ ParseLogArgs (int& argc, char* argv[], int skip_usage)
   while (i < argc)
   {
     string arg(argv[i]);
-    if (arg == "-debug" && i+1 < argc)
+    if ((arg == "-debug" || arg == "--debug") && i+1 < argc)
     {
       handleOption (argv[++i], log4cpp::Priority::DEBUG, appender);
     }
-    else if (arg == "-notice" && i+1 < argc)
+    else if ((arg == "-notice" || arg == "--notice") && i+1 < argc)
     {
       handleOption (argv[++i], log4cpp::Priority::NOTICE, appender);
     }
-    else if (arg == "-info" && i+1 < argc)
+    else if ((arg == "-info" || arg == "--info") && i+1 < argc)
     {
       handleOption (argv[++i], log4cpp::Priority::INFO, appender);
     }
-    else if (arg == "-logfile" && i+1 < argc)
+    else if ((arg == "-logfile" || arg == "--logfile") && i+1 < argc)
     {
       char *logfile = argv[++i];
       log4cpp::Appender *app =  
@@ -161,7 +161,7 @@ ParseLogArgs (int& argc, char* argv[], int skip_usage)
       }
     
     }
-    else if (arg == "-categories")
+    else if (arg == "-categories" || arg == "--categories")
     {
       // Define any categories on the global list of names, then query
       // the log4cpp list, in case other categories have been specified
