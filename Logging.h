@@ -125,6 +125,26 @@ inline log4cpp::Category &symbol() \
  */
 #define CatLog localCategory()
 
+/**
+ * Define LOGX_LOGGING_MACROS to override any other macro definitions
+ * for the ELOG, WLOG, ILOG, and DLOG macros.
+ **/
+#ifdef LOGX_LOGGING_MACROS
+#ifdef WLOG
+# undef WLOG
+#endif
+#ifdef ILOG
+# undef ILOG
+#endif
+#ifdef DLOG
+# undef DLOG
+#endif
+#ifdef ELOG
+# undef ELOG
+#endif
+#endif
+
+
 #define DLOG localCategory().debugStream()
 #define WLOG localCategory().warnStream()
 #define ELOG localCategory().errorStream()
