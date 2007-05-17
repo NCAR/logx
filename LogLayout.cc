@@ -33,7 +33,7 @@ LogLayout::~LogLayout()
 }
 
 std::string
-LogLayout::format(const LoggingEvent& event) 
+LogLayout::format(const log4cpp::LoggingEvent& event) 
 {
   char buf[32];
   time_t t = event.timeStamp.getSeconds();
