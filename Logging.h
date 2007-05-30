@@ -86,6 +86,7 @@ namespace logx
   const std::string*
   getLocalCategoryNames(int* n);
 
+  extern log4cpp::CategoryStream::Separator endlog;
 }
 
 /**
@@ -106,8 +107,7 @@ inline log4cpp::Category &localCategory() \
   static log4cpp::Category& log = log4cpp::Category::getInstance(name); \
   return log; \
 } \
-log4cpp::CategoryStream::Separator endlog = log4cpp::CategoryStream::ENDLINE;\
-}
+ using logx::endlog; }
 
 #define LOGCATEGORY(name,symbol) \
 namespace { \
