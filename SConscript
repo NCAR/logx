@@ -18,11 +18,7 @@ Default(liblogx)
 env.InstallLibrary(liblogx)
 env.InstallHeaders('logx', headers)
 
-doxconfig = {
-    "PROJECT_NAME" : "logx library"
-    }
-    
-env.Apidocs(sources + headers + ["private/LogLayout.h"],
-            DOXYFILE_DICT=doxconfig)
+env['DOXYFILE_DICT'].update({ "PROJECT_NAME" : "logx library" })
+env.Apidocs(sources + headers + ["private/LogLayout.h"])
 
 SConscript("tests/SConscript")
