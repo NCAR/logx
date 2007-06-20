@@ -12,7 +12,8 @@ headers = Split("""
  system_error.h
 """)
 
-liblogx = env.Library('logx', sources)
+objects = env.SharedObject(sources)
+liblogx = env.Library('logx', objects)
 Default(liblogx)
 
 env.InstallLibrary(liblogx)
