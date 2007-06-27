@@ -1,6 +1,8 @@
 # -*- python -*-
 
-env = Environment(tools = Split('default log4cpp'))
+Import('env')
+env = env.Create('logx')
+env.Require (Split('PKG_LOG4CPP'))
 
 sources = Split("""
  Logging.cc LogLayout.cc LogAppender.cc system_error.cc

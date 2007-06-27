@@ -1,10 +1,14 @@
 # -*- python -*-
 
-env = Environment(tools = ['default','logx'])
+Import('env')
+my_env = env.Create('logx.tests')
+my_tools = my_env.Require(Split('PKG_LOGX'))
 
-test = env.Program('tlogx', Split("""
+test = my_env.Program('tlogx', Split("""
  tlogx.cc tlogx_a.cc tlogx_b.cc
 """))
 Default(test)
+
+
 
 DefaultEnvironment().Alias('check', test)
