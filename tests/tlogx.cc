@@ -4,6 +4,8 @@
 
 LOGGING("tlogx");
 
+#include <algorithm>
+
 extern void tlogx_a();
 extern void tlogx_b();
 

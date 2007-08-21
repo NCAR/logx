@@ -1,8 +1,6 @@
 # -*- python -*-
 
-Import('env')
-env = env.Create('logx')
-env.Require (Split('PKG_LOG4CPP'))
+env = Environment(tools = Split('default doxygen log4cpp'))
 
 sources = Split("""
  Logging.cc LogLayout.cc LogAppender.cc system_error.cc

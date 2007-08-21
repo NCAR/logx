@@ -1,14 +1,11 @@
 # -*- python -*-
 
-Import('env')
-my_env = env.Create('logx.tests')
-my_tools = my_env.Require(Split('PKG_LOGX'))
+env = Environment(tools = ['default','logx'])
 
-test = my_env.Program('tlogx', Split("""
+env.AppendUnique(CPPPATH="../..")
+
+test = env.Program('tlogx', Split("""
  tlogx.cc tlogx_a.cc tlogx_b.cc
 """))
-Default(test)
 
-
-
-DefaultEnvironment().Alias('check', test)
+Alias('check', env.Test(test, env.ChdirActions(["./tlogx"])))
