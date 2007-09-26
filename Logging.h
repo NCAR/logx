@@ -85,15 +85,12 @@ namespace logx
    **/
   const std::string*
   getLocalCategoryNames(int* n);
-
-  extern log4cpp::CategoryStream::Separator endlog;
 }
 
 /**
  * Create a log category with the given @p name with static file scope.
  * Logging streams for this category can be created with the DLOG, ELOG,
- * and ILOG macros.  This also defines a convenient copy @p endlog of the
- * ENDLINE CategoryStream::Separator.  The category is not actually created
+ * and ILOG macros.  The category is not actually created
  * here until used, to avoid issues of initialization order between other
  * translation units.  Instead, category names are collected by the
  * Logging_init() constructors, and those names can be accessed through the
@@ -106,8 +103,7 @@ inline log4cpp::Category &localCategory() \
 { \
   static log4cpp::Category& log = log4cpp::Category::getInstance(name); \
   return log; \
-} \
- using logx::endlog; }
+ } }
 
 #define LOGCATEGORY(name,symbol) \
 namespace { \

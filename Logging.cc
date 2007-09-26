@@ -56,11 +56,6 @@ namespace
 }
 
 
-namespace logx
-{
-  log4cpp::CategoryStream::Separator endlog = log4cpp::CategoryStream::ENDLINE;
-}
-
 const std::string*
 logx::
 getLocalCategoryNames(int* n)
