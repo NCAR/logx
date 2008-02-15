@@ -37,7 +37,7 @@ namespace
     Category& root = Category::getRoot();
     Appender *appender = new OstreamAppender (name, &out);
     appender->setLayout (new LogLayout);
-    appender->setThreshold (p);
+    //appender->setThreshold (p);
     root.addAppender(appender);
     return appender;
   }
@@ -49,7 +49,7 @@ namespace
       Category::getRoot().setPriority(p);
     else
       Category::getInstance(cat).setPriority(p);
-    appender->setThreshold (p);
+    //appender->setThreshold (p);
   }
 
 
