@@ -8,4 +8,4 @@ test = env.Program('tlogx', Split("""
  tlogx.cc tlogx_a.cc tlogx_b.cc
 """))
 
-Alias('check', env.Test(test, env.ChdirActions(["./tlogx"])))
+Alias('check', env.Test(test, env.ChdirActions(["./tlogx --debug all"])))

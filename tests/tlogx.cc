@@ -1,6 +1,7 @@
 
 #include "logx/Logging.h"
 #include "logx/Checks.h"
+#include "logx/LogSentry.h"
 
 LOGGING("tlogx");
 
@@ -8,6 +9,15 @@ LOGGING("tlogx");
 
 extern void tlogx_a();
 extern void tlogx_b();
+
+
+void
+some_function()
+{
+  SLOG(DLOG);
+
+  ILOG << "inside a function";
+}
 
 
 int
@@ -29,6 +39,8 @@ main(int argc, char* argv[])
   tlogx_b();
 
   CatLog.infoStream() << "sub-routines complete";
+
+  some_function();
 
   return CheckResult();
 }
