@@ -5,6 +5,8 @@
 #include "private/LogLayout.h"
 #include <vector>
 #include <string>
+#include <cstring>  // strcmp()
+#include <cstdlib> // exit()
 
 #include <log4cpp/Portability.hh>
 #include <log4cpp/Priority.hh>
@@ -14,11 +16,8 @@
 #include <log4cpp/Category.hh>
 
 using namespace log4cpp;
-using std::cout;
-using std::cerr;
-using std::endl;
-using std::string;
 using namespace logx;
+using namespace std;
 
 // Make sure the list gets initialized even if no other translation units
 // are using it.
