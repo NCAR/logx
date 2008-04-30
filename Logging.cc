@@ -25,7 +25,7 @@ LOGGING("logx.Logging");
 
 namespace
 {
-  int count;
+  int init_count;
 
   std::vector<std::string>* names;
 
@@ -67,7 +67,7 @@ getLocalCategoryNames(int* n)
 Logging_init::
 Logging_init (const std::string& name)
 {
-  if (++count == 1)
+  if (++init_count == 1)
   {
     names = new std::vector<std::string>;
   }
@@ -79,7 +79,7 @@ Logging_init (const std::string& name)
 Logging_init::
 ~Logging_init()
 {
-  if (--count == 0)
+  if (--init_count == 0)
   {
     delete names;
     names = 0;
