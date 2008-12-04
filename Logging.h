@@ -3,6 +3,10 @@
 #ifndef _logx_Logging_H
 #define _logx_Logging_H
 
+#ifdef WIN32
+#undef ERROR
+#endif
+
 #include <log4cpp/Category.hh>
 #include <iosfwd>
 
