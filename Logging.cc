@@ -106,6 +106,8 @@ LogUsage(std::ostream& outs)
        << "                Set info log level for the log category.\n"
        << "  --notice <category>\n"
        << "                Set notice log level for the log category.\n"
+       << "  --fatal <category>\n"
+       << "                Limit this log category to fatal messages.\n"
        << "  --categories   List the log categories.\n"
        << "  --logfile <log_file_name>\n"
        << "                Log messages to the given log file.\n";
@@ -144,6 +146,10 @@ ParseLogArgs (int& argc, char* argv[], int skip_usage)
     else if ((arg == "-info" || arg == "--info") && i+1 < argc)
     {
       handleOption (argv[++i], log4cpp::Priority::INFO, appender);
+    }
+    else if ((arg == "--fatal") && i+1 < argc)
+    {
+      handleOption (argv[++i], log4cpp::Priority::FATAL, appender);
     }
     else if ((arg == "-logfile" || arg == "--logfile") && i+1 < argc)
     {
