@@ -40,11 +40,15 @@ RecentHistoryAppender::_append(const LoggingEvent & event) {
 
 std::vector<std::string>
 RecentHistoryAppender::getMessages(unsigned int & startIndex) const {
-    if (int(startIndex) < _earliestIndex)
-        startIndex = _earliestIndex;
-    
     std::vector<std::string> returnVector;
     
+    if (_msgList.empty()) {
+        return(returnVector);
+    }
+    
+    if (int(startIndex) < _earliestIndex)
+        startIndex = _earliestIndex;
+
     for (; startIndex < _earliestIndex + _msgList.size(); startIndex++) {
         returnVector.push_back(_msgList.at(startIndex - _earliestIndex));
     }
