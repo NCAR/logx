@@ -13,10 +13,18 @@ def logx(env):
 Export('logx')
 
 sources = Split("""
- Logging.cc LogLayout.cc LogAppender.cc system_error.cc
+ Logging.cc
+ LogLayout.cc
+ LogAppender.cc
+ RecentHistoryAppender.cc
+ system_error.cc
 """)
 headers = Split("""
- CaptureStream.h EventSource.h Logging.h Checks.h
+ CaptureStream.h
+ EventSource.h
+ Logging.h
+ Checks.h
+ RecentHistoryAppender.h
  system_error.h
 """)
 
