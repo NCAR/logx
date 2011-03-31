@@ -8,6 +8,7 @@ logxDir = Dir('.').abspath
 def logx(env):
     env.Append(LIBS=[env.GetGlobalTarget('liblogx'),])
     env.AppendUnique(CPPPATH = logxDir)
+    env.AppendDoxref('logx')
     env.Require(tools)
 
 Export('logx')
