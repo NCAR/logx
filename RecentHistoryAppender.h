@@ -34,7 +34,7 @@ public:
      * history which have index greater than or equal to the given start
      * index. If startIndex is zero, it is guaranteed that all messages in
      * the appender will be returned.
-     * @param startIndex[in,out] On entry, startIndex is the desired starting
+     * @param[in,out] startIndex On entry, startIndex is the desired starting
      * index for the list of messages. On exit, startIndex holds the index
      * of the next message after the last in the returned list, i.e., a good 
      * starting index for the next call to getMessages().
