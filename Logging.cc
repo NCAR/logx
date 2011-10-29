@@ -156,6 +156,7 @@ ParseLogArgs (int& argc, char* argv[], int skip_usage)
       char *logfile = argv[++i];
       log4cpp::Appender *app =  
 	new log4cpp::FileAppender("FileAppender", logfile);
+      app->setLayout(new LogLayout);
 
       std::vector<Category*> *cats = Category::getCurrentCategories();
     
