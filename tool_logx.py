@@ -8,7 +8,7 @@ logxDir = Dir('.').abspath
 def logx(env):
     env.Append(LIBS=[env.GetGlobalTarget('liblogx'),])
     env.AppendUnique(CPPPATH = logxDir)
-    env.AppendDoxref('logx')
+    env.AppendDoxref(doxref[0])
     env.Require(tools)
 
 Export('logx')
@@ -37,6 +37,6 @@ env.InstallLibrary(lib)
 env.InstallHeaders('logx', headers)
 
 env['DOXYFILE_DICT'].update({ "PROJECT_NAME" : "logx library" })
-env.Apidocs(sources + headers + ["private/LogLayout.h"])
+doxref = env.Apidocs(sources + headers + ["private/LogLayout.h"])
 
 SConscript("tests/SConscript")
