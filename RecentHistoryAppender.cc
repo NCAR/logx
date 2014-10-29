@@ -26,7 +26,7 @@ RecentHistoryAppender::close() {
 }
 
 void
-RecentHistoryAppender::_append(const LoggingEvent & event) {
+RecentHistoryAppender::_append(const log4cpp::LoggingEvent & event) {
     _msgList.push_back(_getLayout().format(event));
     // Set _earliestIndex if this is our first log entry
     if (_earliestIndex < 0)
