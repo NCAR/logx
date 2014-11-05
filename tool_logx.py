@@ -36,7 +36,7 @@ Default(lib)
 env.InstallLibrary(lib)
 env.InstallHeaders('logx', headers)
 
-env['DOXYFILE_DICT'].update({ "PROJECT_NAME" : "logx library" })
+env['DOXYFILE_DICT'].update({ "PROJECT_NAME" : "Logx" })
 doxref = env.Apidocs(sources + headers + ["private/LogLayout.h"])
 
 SConscript("tests/SConscript")
