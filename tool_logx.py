@@ -33,8 +33,10 @@ objects = env.SharedObject(sources)
 lib = env.Library('logx', objects)
 Default(lib)
 
-env.InstallLibrary(lib)
-env.InstallHeaders('logx', headers)
+# Create install targets if INSTALL_PREFIX is defined
+if env.has_key('INSTALL_PREFIX'):
+    env.InstallLibrary(lib)
+    env.InstallHeaders('logx', headers)
 
 env['DOXYFILE_DICT'].update({ "PROJECT_NAME" : "Logx" })
 doxref = env.Apidocs(sources + headers + ["private/LogLayout.h"])
