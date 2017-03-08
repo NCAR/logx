@@ -1,5 +1,5 @@
 
-CXXSRCS = LogLayout.cc system_error.cc LogAppender.cc
+CXXSRCS = LogLayout.cc system_error.cc LogAppender.cc Logging.cc
 
 INCS = CaptureStream.h  EventSource.h  LogSentry.h system_error.h \
 Checks.h Logging.h RecentHistoryAppender.h
