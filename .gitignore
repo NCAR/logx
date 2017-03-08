@@ -2,4 +2,6 @@
 *.os
 **.o
 tlogx
+Makefile
+Makefile.bak
 
