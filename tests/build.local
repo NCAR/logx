@@ -1,0 +1,5 @@
+#!/bin/sh
+g++ -I../.. -c tlogx.cc
+g++ -I../.. -c tlogx_a.cc
+g++ -I../.. -c tlogx_b.cc
+g++ -o tlogx -L.. tlogx.o tlogx_a.o tlogx_b.o -llogx -llog4cpp -pthread
