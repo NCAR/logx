@@ -4,4 +4,6 @@
 tlogx
 Makefile
 Makefile.bak
+.sconsign*
+
 

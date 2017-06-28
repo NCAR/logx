@@ -1,6 +1,6 @@
 # -*- python -*-
 
-tools = ['doxygen', 'log4cpp']
+tools = ['prefixoptions', 'doxygen', 'log4cpp']
 env = Environment(tools = ['default'] + tools)
 
 logxDir = Dir('.').abspath
@@ -25,6 +25,7 @@ headers = Split("""
  EventSource.h
  Logging.h
  Checks.h
+ LogSentry.h
  RecentHistoryAppender.h
  system_error.h
 """)

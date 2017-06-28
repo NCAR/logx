@@ -2,7 +2,7 @@
 
 import os,os.path, sys
 sys.path.append(os.path.join(os.getcwd(),'config'))
-import atd_scons
+import eol_scons
 
 def setup(env):
     prefix = env['OPT_PREFIX']
