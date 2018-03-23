@@ -1,7 +1,5 @@
 # -*- python -*-
 
-Import('PREFIX')
-
 tools = ['prefixoptions', 'doxygen', 'log4cpp']
 env = Environment(tools = ['default'] + tools)
 
@@ -36,12 +34,8 @@ objects = env.SharedObject(sources)
 lib = env.Library('logx', objects)
 Default(lib)
 
-# Create install targets if PREFIX is defined
-if PREFIX:
-    env.Install(PREFIX+'/lib','liblogx.a')
-    env.Install(PREFIX+'/include',headers)
 # Create install targets if INSTALL_PREFIX is defined
-if not PREFIX and env.has_key('INSTALL_PREFIX'):
+if env.has_key('INSTALL_PREFIX'):
     env.InstallLibrary(lib)
     env.InstallHeaders('logx', headers)
 
