@@ -3,7 +3,7 @@
 tools = ['prefixoptions', 'doxygen', 'log4cpp']
 env = Environment(tools = ['default'] + tools)
 
-logxDir = Dir('.')
+logxDir = Dir('..')
 
 def logx(env):
     env.Append(LIBS=[env.GetGlobalTarget('liblogx'),])
