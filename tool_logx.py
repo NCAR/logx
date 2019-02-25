@@ -35,7 +35,7 @@ lib = env.Library('logx', objects)
 Default(lib)
 
 # Create install targets if INSTALL_PREFIX is defined
-if env.has_key('INSTALL_PREFIX'):
+if 'INSTALL_PREFIX' in env:
     env.InstallLibrary(lib)
     env.InstallHeaders('logx', headers)
 
