@@ -1,2 +1,0 @@
-#!/bin/sh
-$ACE_ROOT/netsvcs/servers/main   -f /etc/opt/atd-radd/server_log.conf -b

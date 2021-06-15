@@ -6,4 +6,7 @@
 # an Environment.  That way any variant dirs in effect for this SConscript
 # will also be in effect for the logx build.
 
+import eol_scons
+from SCons.Script import SConscript
+
 SConscript('tool_logx.py')

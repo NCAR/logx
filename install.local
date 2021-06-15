@@ -1,3 +1,0 @@
-#!/bin/sh
-xmkmf
-make  install  LIBDIR=/usr/local/lib INCDIR=/usr/local/include/logx
