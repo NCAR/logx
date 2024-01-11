@@ -1,9 +1,12 @@
 # -*- python -*-
 
-tools = ['prefixoptions', 'doxygen', 'log4cpp']
-env = Environment(tools = ['default'] + tools)
+from SCons.Script import Environment, SConscript
 
-logxDir = Dir('..')
+tools = ['prefixoptions', 'doxygen', 'log4cpp']
+env = Environment(tools=['default'] + tools)
+
+logxDir = env.Dir('..')
+
 
 def logx(env):
     env.Append(LIBS=[env.GetGlobalTarget('liblogx'),])
@@ -11,16 +14,18 @@ def logx(env):
     env.AppendDoxref(doxref[0])
     env.Require(tools)
 
-Export('logx')
 
-sources = Split("""
+env.Export('logx')
+
+sources = env.Split("""
  Logging.cc
  LogLayout.cc
  LogAppender.cc
  RecentHistoryAppender.cc
  system_error.cc
 """)
-headers = Split("""
+
+headers = env.Split("""
  CaptureStream.h
  EventSource.h
  Logging.h
@@ -32,16 +37,19 @@ headers = Split("""
 
 objects = env.SharedObject(sources)
 lib = env.Library('logx', objects)
-Default(lib)
+env.Default(lib)
 
-# Install targets commented out.  Shouldn't be needed.
 
-# Create install targets if INSTALL_PREFIX is defined
-#if 'INSTALL_PREFIX' in env:
-#    env.InstallLibrary(lib)
-#    env.InstallHeaders('logx', headers)
-
-env['DOXYFILE_DICT'].update({ "PROJECT_NAME" : "Logx" })
+env['DOXYFILE_DICT'].update({"PROJECT_NAME": "Logx"})
 doxref = env.Apidocs(sources + headers + ["private/LogLayout.h"])
 
 SConscript("tests/SConscript")
+
+# When this is the top-level source directory, add help info and install
+# targets.
+if env.Dir('#') == env.Dir('.'):
+    env['DEFAULT_INSTALL_PREFIX'] = '/opt/local'
+    env['DEFAULT_OPT_PREFIX'] = '$DEFAULT_INSTALL_PREFIX'
+    env.InstallLibrary(lib)
+    env.InstallHeaders('logx', headers)
+    env.SetHelp()
