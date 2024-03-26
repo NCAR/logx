@@ -1,6 +1,4 @@
 
-
-
 #include "Logging.h"
 #include "private/LogLayout.h"
 #include <vector>
@@ -31,7 +29,7 @@ namespace
 
   Appender*
   AddRootAppender (const std::string& name, std::ostream& out, 
-		   Priority::Value p)
+                   Priority::Value p)
   {
     Category& root = Category::getRoot();
     Appender *appender = new OstreamAppender (name, &out);
@@ -155,15 +153,15 @@ ParseLogArgs (int& argc, char* argv[], int skip_usage)
     {
       char *logfile = argv[++i];
       log4cpp::Appender *app =  
-	new log4cpp::FileAppender("FileAppender", logfile);
+        new log4cpp::FileAppender("FileAppender", logfile);
       app->setLayout(new LogLayout);
 
       std::vector<Category*> *cats = Category::getCurrentCategories();
     
       for (std::vector<Category*>::iterator icat = cats->begin();
-	   icat != cats->end(); ++icat)
+           icat != cats->end(); ++icat)
       {
-	(*icat)->setAppender(app);
+        (*icat)->setAppender(app);
       }
     
     }
@@ -175,32 +173,32 @@ ParseLogArgs (int& argc, char* argv[], int skip_usage)
       std::vector<std::string>::iterator in;
       for (in = names->begin(); in != names->end(); ++in)
       {
-	Category::getInstance(*in);
+        Category::getInstance(*in);
       }
       cout << "Log categories: " << endl;
       std::vector<Category*> *cats = Category::getCurrentCategories();
       for (std::vector<Category*>::iterator icat = cats->begin();
-	   icat != cats->end(); ++icat)
+           icat != cats->end(); ++icat)
       {
-	cout << "  ";
-	if ((*icat)->getName().length() == 0)
-	  cout << "all";
-	else
-	  cout << (*icat)->getName();
-	cout << endl;
+        cout << "  ";
+        if ((*icat)->getName().length() == 0)
+          cout << "all";
+        else
+          cout << (*icat)->getName();
+        cout << endl;
       }
       exit (0);
     }
     else
     {
       if (iremain < i)
-	argv[iremain] = argv[i];
+        argv[iremain] = argv[i];
       // Check for help request but leave it on the arg list for
       // other option checkers to handle too.
       if (arg == "-help" || arg == "--help")
       {
-	if (! skip_usage)
-	  LogUsage();
+        if (! skip_usage)
+          LogUsage();
       }
       ++iremain;
     }
