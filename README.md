@@ -1,4 +1,4 @@
-# The Logx Library
+# Logx Library
 
 Logx is a library of API extensions to the [log4cpp logging
 library](http://log4cpp.sf.net/).  log4cpp is usually available as a standard
@@ -21,14 +21,23 @@ do_something()
 }
 ```
 
-## Alternatives
+The [example](example.cc) program demonstrates one way to configure the
+logging with command-line arguments, using the `logx::ParseLogArgs()` and
+`logx::LogUsage()` functions.  Build it like so:
 
-There are other logging alternatives in use in EOL.
-[NIDAS](https://github.com/ncareol/nidas) has a logging interface in the
-`nidas_util` library; see
-[nidas/util/Logger.h](https://github.com/ncareol/nidas/blob/master/src/nidas/util/Logger.h).
-Boost also has a logging library,
-[boost::log](https://www.boost.org/doc/libs/release/libs/log/).
+```sh
+scons -f SConscript example
+```
+
+Then run it to see how the arguments affect the output.
+
+Note `ParseLogArgs()` handles help arguments in a somewhat quirky manner.  If
+`-help` or `--help` is detected, then the logging option usage is printed,
+unless `skip_usage` is true.  The calling program, however, must still check
+for the help argument itself, and if found print it's own usage info.  Most
+programs will want to pass `skip_usage` as true, and then incorporate the
+logging argument usage in the program usage by calling `logx::LogUsage()`
+explicitly.
 
 ## Building Logx
 
@@ -68,3 +77,12 @@ To see all of the configuration options, use `scons -f SConscript -h`.
 
 Generate HTML API documentation from `doxygen` with `scons -f SConscript apidocs`,
 although the documentation in the comments is rather sparse.
+
+## Alternatives
+
+There are other logging alternatives in use in EOL.
+[NIDAS](https://github.com/ncareol/nidas) has a logging interface in the
+`nidas_util` library; see
+[nidas/util/Logger.h](https://github.com/ncareol/nidas/blob/master/src/nidas/util/Logger.h).
+Boost also has a logging library,
+[boost::log](https://www.boost.org/doc/libs/release/libs/log/).

@@ -7,6 +7,9 @@
 # will also be in effect for the logx build.
 
 import eol_scons
-from SCons.Script import SConscript
+from SCons.Script import SConscript, Environment
 
 SConscript('tool_logx.py')
+
+env = Environment(tools=['default', 'logx'])
+env.Program('example.cc')
