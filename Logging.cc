@@ -28,25 +28,22 @@ namespace
   std::vector<std::string>* names;
 
   Appender*
-  AddRootAppender (const std::string& name, std::ostream& out, 
-                   Priority::Value p)
+  AddRootAppender (const std::string& name, std::ostream& out)
   {
     Category& root = Category::getRoot();
     Appender *appender = new OstreamAppender (name, &out);
     appender->setLayout (new LogLayout);
-    //appender->setThreshold (p);
     root.addAppender(appender);
     return appender;
   }
 
   void
-  handleOption (const char* cat, Priority::Value p, Appender* appender = 0)
+  handleOption (const char* cat, Priority::Value p)
   {
     if (strcmp (cat, "all") == 0)
       Category::getRoot().setPriority(p);
     else
       Category::getInstance(cat).setPriority(p);
-    //appender->setThreshold (p);
   }
 
 
@@ -117,7 +114,7 @@ void
 logx::
 AddVerboseAppender (const std::string& name, std::ostream& out)
 {
-  AddRootAppender (name, out, Priority::DEBUG);
+  AddRootAppender (name, out);
 }
 
 
@@ -126,7 +123,6 @@ logx::
 ParseLogArgs (int& argc, char* argv[], int skip_usage)
 {
   Category::getRoot().removeAllAppenders();
-  Appender* appender = AddRootAppender ("cerr", std::cerr, Priority::ERROR);
 
   int i = 1;
   int iremain = 1;
@@ -135,19 +131,19 @@ ParseLogArgs (int& argc, char* argv[], int skip_usage)
     string arg(argv[i]);
     if ((arg == "-debug" || arg == "--debug") && i+1 < argc)
     {
-      handleOption (argv[++i], log4cpp::Priority::DEBUG, appender);
+      handleOption (argv[++i], log4cpp::Priority::DEBUG);
     }
     else if ((arg == "-notice" || arg == "--notice") && i+1 < argc)
     {
-      handleOption (argv[++i], log4cpp::Priority::NOTICE, appender);
+      handleOption (argv[++i], log4cpp::Priority::NOTICE);
     }
     else if ((arg == "-info" || arg == "--info") && i+1 < argc)
     {
-      handleOption (argv[++i], log4cpp::Priority::INFO, appender);
+      handleOption (argv[++i], log4cpp::Priority::INFO);
     }
     else if ((arg == "--fatal") && i+1 < argc)
     {
-      handleOption (argv[++i], log4cpp::Priority::FATAL, appender);
+      handleOption (argv[++i], log4cpp::Priority::FATAL);
     }
     else if ((arg == "-logfile" || arg == "--logfile") && i+1 < argc)
     {
