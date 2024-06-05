@@ -123,6 +123,7 @@ logx::
 ParseLogArgs (int& argc, char* argv[], int skip_usage)
 {
   Category::getRoot().removeAllAppenders();
+  AddRootAppender("cerr", std::cerr);
 
   int i = 1;
   int iremain = 1;
