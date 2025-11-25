@@ -2,16 +2,14 @@
 
 from SCons.Script import Environment, SConscript
 
-tools = ['prefixoptions', 'doxygen', 'log4cpp']
-env = Environment(tools=['default'] + tools)
-
-logxDir = env.Dir('..')
+env = Environment(tools=['default', 'doxygen', 'log4cpp'])
 
 
 def logx(env):
     env.Append(LIBS=[env.GetGlobalTarget('liblogx'),])
-    env.AppendUnique(CPPPATH=logxDir)
-    env.Require(tools)
+    # includes use the logx/ prefix
+    env.AppendUnique(CPPPATH=env.Dir('..'))
+    env.Require('log4cpp')
 
 
 env.Export('logx')
@@ -47,6 +45,7 @@ SConscript("tests/SConscript")
 # When this is the top-level source directory, add help info and install
 # targets.
 if env.Dir('#') == env.Dir('.'):
+    env.Require('prefixoptions')
     env['DEFAULT_INSTALL_PREFIX'] = '/opt/local'
     env['DEFAULT_OPT_PREFIX'] = '$DEFAULT_INSTALL_PREFIX'
     env.InstallLibrary(lib)
