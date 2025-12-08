@@ -4,11 +4,14 @@ from SCons.Script import Environment, SConscript
 
 env = Environment(tools=['default', 'doxygen', 'log4cpp'])
 
+# includes use the logx/ prefix, so the parent dir will be added to the
+# include path
+logxdir = env.Dir('..')
+
 
 def logx(env):
     env.Append(LIBS=[env.GetGlobalTarget('liblogx'),])
-    # includes use the logx/ prefix
-    env.AppendUnique(CPPPATH=env.Dir('..'))
+    env.AppendUnique(CPPPATH=logxdir)
     env.Require('log4cpp')
 
 
