@@ -41,11 +41,19 @@ namespace
   handleOption (const char* cat, Priority::Value p)
   {
     if (strcmp (cat, "all") == 0)
+    {
       Category::getRoot().setPriority(p);
+      DLOG << "Set log level for all categories to "
+           << Priority::getPriorityName(p);
+    }
     else
-      Category::getInstance(cat).setPriority(p);
+    {
+      Category& c = Category::getInstance(cat);
+      c.setPriority(p);
+      DLOG << "Set log level for category " << cat << " to "
+           << Priority::getPriorityName(p);
+    }
   }
-
 
 }
 
@@ -203,4 +211,5 @@ ParseLogArgs (int& argc, char* argv[], int skip_usage)
   }
   argc = iremain;
   argv[argc] = 0;
+  DLOG << "Options parsed, " << argc << " arguments remain";
 }
