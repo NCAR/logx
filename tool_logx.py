@@ -21,6 +21,7 @@ sources = env.Split("""
  Logging.cc
  LogLayout.cc
  LogAppender.cc
+ LogExpect.cc
  RecentHistoryAppender.cc
  system_error.cc
 """)
@@ -31,6 +32,7 @@ headers = env.Split("""
  Logging.h
  Checks.h
  LogSentry.h
+ LogExpect.h
  RecentHistoryAppender.h
  system_error.h
 """)

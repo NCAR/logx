@@ -6,6 +6,7 @@ add_library (logx
     Logging.cc
     LogLayout.cc
     LogAppender.cc
+    LogExpect.cc
     RecentHistoryAppender.cc
     system_error.cc
   )
