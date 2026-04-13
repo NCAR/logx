@@ -8,3 +8,5 @@ Makefile.bak
 /apidocs/
 /example
 /build
+/variants
+/.vscode

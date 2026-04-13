@@ -4,7 +4,7 @@
 
 #include <log4cpp/Priority.hh>
 
-#include "Logging.h"
+#include "logx/Logging.h"
 #include "private/LogLayout.h"
 #include <iostream>
 #include <string>

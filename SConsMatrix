@@ -1,0 +1,39 @@
+
+import eol_scons
+from SCons.Script import SConscript, Environment
+from pathlib import Path
+
+
+# Setup different build environments keyed by the variant directory.
+def Matrix(env: Environment):
+    vpath = Path(env.Dir('.').path)
+    # get the variant name after the variant subdirectory
+    vname = vpath.parts[1] if len(vpath.parts) > 1 else None
+    toolbuild = True
+    if vname == 'clang_11':
+        env['CXX'] = 'clang++'
+        env['CXXFLAGS'] = ['-std=c++11']
+    elif vname == 'clang_17':
+        env['CXX'] = 'clang++'
+        env['CXXFLAGS'] = ['-std=c++17']
+    elif vname == 'gcc_11':
+        env['CXX'] = 'g++'
+        env['CXXFLAGS'] = ['-std=c++11']
+    elif vname == 'gcc_17':
+        env['CXX'] = 'g++'
+        env['CXXFLAGS'] = ['-std=c++17']
+    else:
+        toolbuild = False
+    env.Append(CXXFLAGS=['-Wall', '-Wextra', '-Werror', '-g'])
+    # these only apply when logx is built
+    if toolbuild:
+        env['LOGX_TOOL_NAME'] = f'logx_{vname}'
+
+
+env = Environment(tools=['default'])
+env.RequireGlobal(Matrix)
+
+SConscript('SConscript', variant_dir='variants/clang_11')
+SConscript('SConscript', variant_dir='variants/clang_17')
+SConscript('SConscript', variant_dir='variants/gcc_11')
+SConscript('SConscript', variant_dir='variants/gcc_17')

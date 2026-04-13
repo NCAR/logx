@@ -1,6 +1,5 @@
-// $Id$
 
-#include "system_error.h"
+#include "logx/system_error.h"
 #include <string.h>
 #include <errno.h>
 #include <sstream>

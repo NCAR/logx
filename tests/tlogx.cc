@@ -5,6 +5,14 @@
 
 LOGGING("tlogx");
 
+namespace unused {
+  // create a category that is unused to test for compiler warnings.
+  LOGGING("unused");
+
+  LOGCATEGORY("testing", testcat);
+}
+
+
 #include <algorithm>
 
 extern void tlogx_a();
@@ -27,7 +35,7 @@ main(int argc, char* argv[])
   int n;
   const std::string* names = logx::getLocalCategoryNames(&n);
 
-  Check(n == 4); // Includes the "Logging" category.
+  Check(n == 6); // Includes the "Logging" category, "unused", and "testing".
   Check(std::find (names, names+n, "tlogx") != names+n);
   Check(std::find (names, names+n, "tlogx.a") != names+n);
   Check(std::find (names, names+n, "tlogx.b") != names+n);
