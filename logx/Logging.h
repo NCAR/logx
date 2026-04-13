@@ -91,6 +91,16 @@ namespace logx
   getLocalCategoryNames(int* n);
 }
 
+
+#if __cplusplus >= 201703L
+# define LOGX_LOGGING_UNUSED [[maybe_unused]]
+#elif __GNUC__
+# define LOGX_LOGGING_UNUSED __attribute__ ((__unused__))
+#else
+# define LOGX_LOGGING_UNUSED
+#endif
+
+
 /**
  * Create a log category with the given @p name with static file scope.
  * Logging streams for this category can be created with the DLOG, ELOG,
@@ -103,16 +113,17 @@ namespace logx
 #define LOGGING(name) \
 namespace { \
 logx::Logging_init _logging_init_localCategory(name); \
-inline log4cpp::Category &localCategory() \
+LOGX_LOGGING_UNUSED inline log4cpp::Category& localCategory() \
 { \
   static log4cpp::Category& log = log4cpp::Category::getInstance(name); \
   return log; \
- } }
+} \
+}
 
 #define LOGCATEGORY(name,symbol) \
 namespace { \
 logx::Logging_init _logging_init_##symbol(name); \
-inline log4cpp::Category &symbol() \
+LOGX_LOGGING_UNUSED inline log4cpp::Category& symbol() \
 { \
   static log4cpp::Category& log = log4cpp::Category::getInstance(name); \
   return log; \
