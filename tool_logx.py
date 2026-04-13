@@ -3,19 +3,17 @@
 from SCons.Script import Environment, SConscript
 
 env = Environment(tools=['default', 'doxygen', 'log4cpp'])
-
-# includes use the logx/ prefix, so the parent dir will be added to the
-# include path
-logxdir = env.Dir('..')
+build = env
 
 
 def logx(env):
-    env.Append(LIBS=[env.GetGlobalTarget('liblogx'),])
-    env.AppendUnique(CPPPATH=logxdir)
+    env.Append(LIBS=[build['LOGX_LIB']])
+    env.AppendUnique(CPPPATH=[build['LOGX_CPPPATH']])
     env.Require('log4cpp')
 
 
-env.Export('logx')
+toolname = env.get('LOGX_TOOL_NAME', 'logx')
+env.Export({toolname: logx})
 
 sources = env.Split("""
  Logging.cc
@@ -27,23 +25,25 @@ sources = env.Split("""
 """)
 
 headers = env.Split("""
- CaptureStream.h
- EventSource.h
- Logging.h
- Checks.h
- LogSentry.h
- LogExpect.h
- RecentHistoryAppender.h
- system_error.h
+ logx/CaptureStream.h
+ logx/EventSource.h
+ logx/Logging.h
+ logx/Checks.h
+ logx/LogSentry.h
+ logx/LogExpect.h
+ logx/RecentHistoryAppender.h
+ logx/system_error.h
 """)
 
 objects = env.SharedObject(sources)
 lib = env.Library('logx', objects)
 env.Default(lib)
+build['LOGX_CPPPATH'] = env.Dir('.')
+build['LOGX_LIB'] = lib
 
-
-env['DOXYFILE_DICT'].update({"PROJECT_NAME": "Logx"})
-env.Apidocs(sources + headers + ["private/LogLayout.h"])
+if toolname == 'logx':
+    env['DOXYFILE_DICT'].update({"PROJECT_NAME": "Logx"})
+    env.Apidocs(sources + headers + ["private/LogLayout.h"])
 
 SConscript("tests/SConscript")
 

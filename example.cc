@@ -21,6 +21,14 @@ void usage()
 }
 
 
+
+void example_program()
+{
+    auto& lc = log4cpp::Category::getInstance("example");
+    lc.infoStream() << "inside example_program";
+}
+
+
 int main(int argc, char* argv[])
 {
     logx::ParseLogArgs(argc, argv, true/*skip_usage*/);
@@ -37,6 +45,7 @@ int main(int argc, char* argv[])
     }
     ILOG << "program continues...";
     DLOG << "debug messages enabled";
+    example_program();
     ELOG << "an error (notice) message looks like this, exiting";
     return 0;
 }

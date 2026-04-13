@@ -1,11 +1,14 @@
 # -*- python -*-
 
-env = Environment(tools = ['default','logx'])
+from SCons.Script import Environment
 
-env.AppendUnique(CPPPATH="../..")
+env = Environment(tools=['default'])
 
-test = env.Program('tlogx', Split("""
+# allow variant builds to override the default tool name for the logx library
+env.Require(env.get('LOGX_TOOL_NAME', 'logx'))
+
+test = env.Program('tlogx', env.Split("""
  tlogx.cc tlogx_a.cc tlogx_b.cc
 """))
 
-Alias('check', env.Test(test, env.ChdirActions(["./tlogx --debug all"])))
+env.Alias('check', env.Test(test, env.ChdirActions(["./tlogx --debug all"])))
