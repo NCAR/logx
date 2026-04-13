@@ -1,5 +1,5 @@
 
-#include "Logging.h"
+#include "logx/Logging.h"
 #include "private/LogLayout.h"
 #include <vector>
 #include <string>

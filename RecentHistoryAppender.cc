@@ -1,7 +1,7 @@
 /*
  * RecentHistoryAppender.cc
  */
-#include "RecentHistoryAppender.h"
+#include "logx/RecentHistoryAppender.h"
 #include "private/LogLayout.h"
 
 using namespace log4cpp;
