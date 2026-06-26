@@ -16,7 +16,7 @@ void usage()
 {
     cout << "Usage: example [-h|--help] [log options] [options]\n\n";
     // print usage for program options
-    // print loggging usage
+    // print logging usage
     logx::LogUsage(cout);
 }
 

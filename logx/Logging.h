@@ -63,11 +63,11 @@ namespace logx
    **/
   void
   LogToFile(std::string logFile,  bool additivity = true);
-    
+
 
   /**
    * Simple class to collect the logging category names specified across
-   * translation units into a singe global list, so that all of the
+   * translation units into a single global list, so that all of the
    * categories are known up front and can be configured with command-line
    * options.
    **/
@@ -81,7 +81,7 @@ namespace logx
 
   /**
    * Return the array of logging category names specified for individual
-   * compilation modules with the LOGGGING macro.  These category names
+   * compilation modules with the LOGGING macro.  These category names
    * have not necessarily been instantiated yet with
    * log4cpp::getInstance().  That is deferred until they are actually
    * needed, such as when the category appenders and threshold levels are
